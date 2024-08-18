@@ -2141,3 +2141,62 @@ mod test_sync {
         server.get("/test").await.assert_text("it works");
     }
 }
+
+#[cfg(test)]
+mod test_is_shutdown {
+    use super::*;
+    use crate::util;
+    use axum::serve;
+    use tokio::net::TcpListener as TokioTcpListener;
+
+    #[tokio::test]
+    async fn it_should_do_something() {
+        let app = Router::new();
+        let config = TestServerConfig {
+            transport: Some(Transport::HttpRandomPort),
+            ..TestServerConfig::default()
+        };
+        let server = TestServer::new_with_config(app, config).expect("Should create test server");
+
+        let address_regex = Regex::new("^http://127\\.0\\.0\\.1:[0-9]+/$").unwrap();
+        let is_match = address_regex.is_match(&server.server_address().unwrap().to_string());
+        assert!(is_match);
+    }
+
+    async fn it_should_do_a_test() {
+        // 0. Setup your application
+        let my_app = Router::new();
+
+        // 1. You would need to pick a port for the server (which can be random, or can be predefined).
+        // `util::new_random_tokio_tcp_listener` is new functionality.
+        let tokio_tcp_listener = axum_test::util::new_random_tokio_tcp_listener()?;
+        let local_address = tokio_tcp_listener.local_addr().ok().unwrap();
+        let server = serve(tokio_tcp_listener, my_app.into_make_service())
+            .with_graceful_shutdown(my_app_shutdown_signal());
+
+        // 2. You would need to setup which port the server is using for AxumTest.
+        let config = TestServerConfig::builder()
+            .http_transport_with_ip_port(Some(local_address.ip()), Some(local_address.port()));
+        let test_server = TestServer::new_with_config(server, config);
+
+        // 3. Write your tests
+
+        // 4. I would add a way to test if the server is still running
+        // `is_shutdown` is new functionality.
+        let is_running = test_server.is_shutdown();
+    }
+
+    async fn it_should_do_a_test_2() {
+        // 0. Setup your application
+        let my_app = Router::new();
+
+        // 1. You would need to setup the graceful shutdown on the `TestServer`, not your application.
+        let config = TestServerConfig::builder().with_graceful_shutdown(my_app_shutdown_signal());
+        let test_server = TestServer::new_with_config(my_app, config);
+
+        // 3. Write your tests
+
+        // 4. I would add a way to test if the server is still running
+        let is_running = test_server.is_shutdown();
+    }
+}

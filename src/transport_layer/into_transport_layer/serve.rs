@@ -1,34 +1,36 @@
+use ::anyhow::anyhow;
 use ::anyhow::Context;
 use ::anyhow::Result;
-use ::axum::routing::IntoMakeService;
-use ::axum::serve;
-use ::axum::Router;
-use ::tokio::net::TcpListener as TokioTcpListener;
+use ::axum::extract::Request;
+use ::axum::response::Response;
+use ::axum::serve::IncomingStream;
+use ::axum::serve::Serve;
+use ::std::convert::Infallible;
 use ::tokio::spawn;
+use ::tower::Service;
 use ::url::Url;
 
-use super::IntoTransportLayer;
 use crate::internals::HttpTransportLayer;
-use crate::internals::MockTransportLayer;
+use crate::transport_layer::IntoTransportLayer;
 use crate::transport_layer::TransportLayer;
 use crate::transport_layer::TransportLayerBuilder;
 
-impl IntoTransportLayer for IntoMakeService<Router> {
+impl<M, S> IntoTransportLayer for Serve<M, S>
+where
+    M: for<'a> Service<IncomingStream<'a>, Error = Infallible, Response = S> + Send + 'static,
+    for<'a> <M as Service<IncomingStream<'a>>>::Future: Send,
+    S: Service<Request, Response = Response, Error = Infallible> + Clone + Send + 'static,
+    S::Future: Send,
+{
     fn into_http_transport_layer(
         self,
         builder: TransportLayerBuilder,
     ) -> Result<Box<dyn TransportLayer>> {
-        let (socket_addr, tcp_listener, maybe_reserved_port) =
-            builder.tcp_listener_with_reserved_port()?;
-
-        let maybe_local_address = tcp_listener.local_addr().ok();
-        tcp_listener.set_nonblocking(true)?;
-        let tokio_tcp_listener = TokioTcpListener::from_std(tcp_listener)?;
+        let socket_addr = builder.socket_address()?;
 
         let server_handle = spawn(async move {
-            serve(tokio_tcp_listener, self)
-                .await
-                .with_context(|| format!("Failed to create ::axum::Server for TestServer, with address '{maybe_local_address:?}'"))
+            self.await
+                .with_context(|| format!("Failed to create ::axum::Server for TestServer"))
                 .expect("Expect server to start serving");
         });
 
@@ -37,19 +39,25 @@ impl IntoTransportLayer for IntoMakeService<Router> {
 
         Ok(Box::new(HttpTransportLayer::new(
             server_handle,
-            maybe_reserved_port,
+            None,
             server_url,
         )))
     }
 
     fn into_mock_transport_layer(self) -> Result<Box<dyn TransportLayer>> {
-        let transport_layer = MockTransportLayer::new(self);
-        Ok(Box::new(transport_layer))
+        Err(anyhow!("`Serve` cannot be mocked, as it's underlying implementation requires a real connection. Set the `TestServerConfig` to run with a transport of `HttpIpPort`."))
+    }
+
+    fn into_default_transport(
+        self,
+        builder: TransportLayerBuilder,
+    ) -> Result<Box<dyn TransportLayer>> {
+        self.into_http_transport_layer(builder)
     }
 }
 
 #[cfg(test)]
-mod test_into_http_transport_layer_for_into_make_service {
+mod test_into_http_transport_layer_for_serve {
     use ::axum::extract::State;
     use ::axum::routing::get;
     use ::axum::routing::IntoMakeService;

@@ -1,3 +1,4 @@
+use ::anyhow::anyhow;
 use ::anyhow::Context;
 use ::anyhow::Result;
 use ::reserve_port::ReservedPort;
@@ -33,5 +34,17 @@ impl TransportLayerBuilder {
     pub fn tcp_listener(self) -> Result<TcpListener> {
         let (_, tcp_listener, _) = self.tcp_listener_with_reserved_port()?;
         Ok(tcp_listener)
+    }
+
+    pub(crate) fn socket_address(self) -> Result<SocketAddr> {
+        let ip = self
+            .ip
+            .ok_or_else(|| anyhow!("No IP provided, expected an IP to be set"))?;
+        let port = self
+            .port
+            .ok_or_else(|| anyhow!("No port provided, expected a port to be set"))?;
+
+        let socket_addr = SocketAddr::new(ip, port);
+        Ok(socket_addr)
     }
 }

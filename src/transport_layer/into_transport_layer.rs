@@ -6,6 +6,7 @@ use crate::transport_layer::TransportLayer;
 mod into_make_service;
 mod into_make_service_with_connect_info;
 mod router;
+mod serve;
 
 ///
 /// This exists to unify how to send mock or real messages to different services.
