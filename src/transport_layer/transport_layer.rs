@@ -19,4 +19,6 @@ pub trait TransportLayer: Debug + Send + Sync {
     }
 
     fn get_type(&self) -> TransportLayerType;
+
+    fn is_running(&self) -> bool;
 }

@@ -64,6 +64,10 @@ impl TransportLayer for HttpTransportLayer {
     fn get_type(&self) -> TransportLayerType {
         TransportLayerType::Http
     }
+
+    fn is_running(&self) -> bool {
+        !self.server_handle.is_finished()
+    }
 }
 
 impl Drop for HttpTransportLayer {
