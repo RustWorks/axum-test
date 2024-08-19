@@ -3,7 +3,7 @@ use ::reserve_port::ReservedPort;
 use ::std::net::IpAddr;
 use ::std::net::Ipv4Addr;
 use ::tokio::net::TcpListener as TokioTcpListener;
-use std::net::SocketAddr;
+use ::std::net::SocketAddr;
 
 pub(crate) const DEFAULT_IP_ADDRESS: IpAddr = IpAddr::V4(Ipv4Addr::LOCALHOST);
 
