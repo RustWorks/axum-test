@@ -1,27 +1,27 @@
-use ::anyhow::anyhow;
-use ::anyhow::Context;
-use ::anyhow::Result;
-use ::cookie::Cookie;
-use ::cookie::CookieJar;
-use ::http::HeaderName;
-use ::http::HeaderValue;
-use ::http::Method;
-use ::http::Uri;
-use ::serde::Serialize;
-use ::std::fmt::Debug;
-use ::std::sync::Arc;
-use ::std::sync::Mutex;
-use ::url::Url;
+use anyhow::anyhow;
+use anyhow::Context;
+use anyhow::Result;
+use cookie::Cookie;
+use cookie::CookieJar;
+use http::HeaderName;
+use http::HeaderValue;
+use http::Method;
+use http::Uri;
+use serde::Serialize;
+use std::fmt::Debug;
+use std::sync::Arc;
+use std::sync::Mutex;
+use url::Url;
 
 #[cfg(feature = "typed-routing")]
-use ::axum_extra::routing::TypedPath;
+use axum_extra::routing::TypedPath;
 
 #[cfg(feature = "reqwest")]
 use crate::transport_layer::TransportLayerType;
 #[cfg(feature = "reqwest")]
-use ::reqwest::Client;
+use reqwest::Client;
 #[cfg(feature = "reqwest")]
-use ::reqwest::RequestBuilder;
+use reqwest::RequestBuilder;
 
 use crate::internals::ExpectedState;
 use crate::internals::QueryParamsStore;
@@ -55,10 +55,10 @@ const DEFAULT_URL_ADDRESS: &'static str = "http://localhost";
 /// ```rust
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
-/// use ::axum::Router;
-/// use ::axum::routing::get;
+/// use axum::Router;
+/// use axum::routing::get;
 ///
-/// use ::axum_test::TestServer;
+/// use axum_test::TestServer;
 ///
 /// let app = Router::new()
 ///     .route(&"/hello", get(|| async { "hello!" }));
@@ -81,10 +81,10 @@ const DEFAULT_URL_ADDRESS: &'static str = "http://localhost";
 /// ```rust
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
-/// use ::axum::Router;
-/// use ::axum::routing::get;
+/// use axum::Router;
+/// use axum::routing::get;
 ///
-/// use ::axum_test::TestServer;
+/// use axum_test::TestServer;
 ///
 /// let app = Router::new()
 ///     .route(&"/hello", get(|| async { "hello!" }));
@@ -114,10 +114,10 @@ const DEFAULT_URL_ADDRESS: &'static str = "http://localhost";
 /// ```rust
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
-/// use ::axum::Router;
-/// use ::axum::routing::get;
+/// use axum::Router;
+/// use axum::routing::get;
 ///
-/// use ::axum_test::TestServer;
+/// use axum_test::TestServer;
 ///
 /// let app = Router::new()
 ///     .route(&"/hello", get(|| async { "hello!" }));
@@ -166,9 +166,9 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum::routing::get;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum::routing::get;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new()
     ///     .route(&"/hello", get(|| async { "hello!" }));
@@ -345,8 +345,8 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let my_app = Router::new();
     /// let server = TestServer::builder()
@@ -387,8 +387,8 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new();
     /// let server = TestServer::builder()
@@ -408,7 +408,7 @@ impl TestServer {
     ///
     #[cfg(feature = "ws")]
     pub fn get_websocket(&self, path: &str) -> TestRequest {
-        use ::http::header;
+        use http::header;
 
         self.get(path)
             .add_header(header::CONNECTION, "upgrade")
@@ -431,15 +431,15 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Json;
-    /// use ::axum::Router;
-    /// use ::axum::routing::get;
-    /// use ::axum_extra::routing::RouterExt;
-    /// use ::axum_extra::routing::TypedPath;
-    /// use ::serde::Deserialize;
-    /// use ::serde::Serialize;
+    /// use axum::Json;
+    /// use axum::Router;
+    /// use axum::routing::get;
+    /// use axum_extra::routing::RouterExt;
+    /// use axum_extra::routing::TypedPath;
+    /// use serde::Deserialize;
+    /// use serde::Serialize;
     ///
-    /// use ::axum_test::TestServer;
+    /// use axum_test::TestServer;
     ///
     /// #[derive(TypedPath, Deserialize)]
     /// #[typed_path("/users/:user_id")]
@@ -551,8 +551,8 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new();
     /// let server = TestServer::builder()
@@ -701,8 +701,8 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new();
     /// let mut server = TestServer::new(app)?;
@@ -750,8 +750,8 @@ impl TestServer {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new();
     /// let mut server = TestServer::new(app)?;
@@ -1108,9 +1108,9 @@ mod test_build_url {
 
 #[cfg(test)]
 mod test_new {
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::std::net::SocketAddr;
+    use axum::routing::get;
+    use axum::Router;
+    use std::net::SocketAddr;
 
     use crate::TestServer;
 
@@ -1137,9 +1137,9 @@ mod test_new {
 mod test_get {
     use super::*;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::reserve_port::ReservedSocketAddr;
+    use axum::routing::get;
+    use axum::Router;
+    use reserve_port::ReservedSocketAddr;
 
     async fn get_ping() -> &'static str {
         "pong!"
@@ -1277,10 +1277,10 @@ mod test_get {
 mod test_server_address {
     use super::*;
 
-    use ::axum::Router;
-    use ::local_ip_address::local_ip;
-    use ::regex::Regex;
-    use ::reserve_port::ReservedPort;
+    use axum::Router;
+    use local_ip_address::local_ip;
+    use regex::Regex;
+    use reserve_port::ReservedPort;
 
     #[tokio::test]
     async fn it_should_return_address_used_from_config() {
@@ -1332,10 +1332,10 @@ mod test_server_address {
 mod test_server_url {
     use super::*;
 
-    use ::axum::Router;
-    use ::local_ip_address::local_ip;
-    use ::regex::Regex;
-    use ::reserve_port::ReservedPort;
+    use axum::Router;
+    use local_ip_address::local_ip;
+    use regex::Regex;
+    use reserve_port::ReservedPort;
 
     #[tokio::test]
     async fn it_should_return_address_with_url_on_http_ip_port() {
@@ -1475,10 +1475,10 @@ mod test_server_url {
 mod test_add_cookie {
     use crate::TestServer;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::axum_extra::extract::cookie::CookieJar;
-    use ::cookie::Cookie;
+    use axum::routing::get;
+    use axum::Router;
+    use axum_extra::extract::cookie::CookieJar;
+    use cookie::Cookie;
 
     const TEST_COOKIE_NAME: &'static str = &"test-cookie";
 
@@ -1508,11 +1508,11 @@ mod test_add_cookie {
 mod test_add_cookies {
     use crate::TestServer;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::axum_extra::extract::cookie::CookieJar as AxumCookieJar;
-    use ::cookie::Cookie;
-    use ::cookie::CookieJar;
+    use axum::routing::get;
+    use axum::Router;
+    use axum_extra::extract::cookie::CookieJar as AxumCookieJar;
+    use cookie::Cookie;
+    use cookie::CookieJar;
 
     async fn route_get_cookies(cookies: AxumCookieJar) -> String {
         let mut all_cookies = cookies
@@ -1549,11 +1549,11 @@ mod test_add_cookies {
 mod test_clear_cookies {
     use crate::TestServer;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::axum_extra::extract::cookie::CookieJar as AxumCookieJar;
-    use ::cookie::Cookie;
-    use ::cookie::CookieJar;
+    use axum::routing::get;
+    use axum::Router;
+    use axum_extra::extract::cookie::CookieJar as AxumCookieJar;
+    use cookie::Cookie;
+    use cookie::CookieJar;
 
     async fn route_get_cookies(cookies: AxumCookieJar) -> String {
         let mut all_cookies = cookies
@@ -1589,15 +1589,15 @@ mod test_clear_cookies {
 mod test_add_header {
     use super::*;
 
-    use ::axum::async_trait;
-    use ::axum::extract::FromRequestParts;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::http::request::Parts;
-    use ::http::HeaderName;
-    use ::http::HeaderValue;
-    use ::hyper::StatusCode;
-    use ::std::marker::Sync;
+    use axum::async_trait;
+    use axum::extract::FromRequestParts;
+    use axum::routing::get;
+    use axum::Router;
+    use http::request::Parts;
+    use http::HeaderName;
+    use http::HeaderValue;
+    use hyper::StatusCode;
+    use std::marker::Sync;
 
     use crate::TestServer;
 
@@ -1650,15 +1650,15 @@ mod test_add_header {
 mod test_clear_headers {
     use super::*;
 
-    use ::axum::async_trait;
-    use ::axum::extract::FromRequestParts;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::http::request::Parts;
-    use ::http::HeaderName;
-    use ::http::HeaderValue;
-    use ::hyper::StatusCode;
-    use ::std::marker::Sync;
+    use axum::async_trait;
+    use axum::extract::FromRequestParts;
+    use axum::routing::get;
+    use axum::Router;
+    use http::request::Parts;
+    use http::HeaderName;
+    use http::HeaderValue;
+    use hyper::StatusCode;
+    use std::marker::Sync;
 
     use crate::TestServer;
 
@@ -1711,13 +1711,13 @@ mod test_clear_headers {
 
 #[cfg(test)]
 mod test_add_query_params {
-    use ::axum::extract::Query;
-    use ::axum::routing::get;
-    use ::axum::Router;
+    use axum::extract::Query;
+    use axum::routing::get;
+    use axum::Router;
 
-    use ::serde::Deserialize;
-    use ::serde::Serialize;
-    use ::serde_json::json;
+    use serde::Deserialize;
+    use serde::Serialize;
+    use serde_json::json;
 
     use crate::TestServer;
 
@@ -1814,12 +1814,12 @@ mod test_add_query_params {
 
 #[cfg(test)]
 mod test_add_query_param {
-    use ::axum::extract::Query;
-    use ::axum::routing::get;
-    use ::axum::Router;
+    use axum::extract::Query;
+    use axum::routing::get;
+    use axum::Router;
 
-    use ::serde::Deserialize;
-    use ::serde::Serialize;
+    use serde::Deserialize;
+    use serde::Serialize;
 
     use crate::TestServer;
 
@@ -1889,13 +1889,13 @@ mod test_add_query_param {
 
 #[cfg(test)]
 mod test_add_raw_query_param {
-    use ::axum::extract::Query as AxumStdQuery;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::axum_extra::extract::Query as AxumExtraQuery;
-    use ::serde::Deserialize;
-    use ::serde::Serialize;
-    use ::std::fmt::Write;
+    use axum::extract::Query as AxumStdQuery;
+    use axum::routing::get;
+    use axum::Router;
+    use axum_extra::extract::Query as AxumExtraQuery;
+    use serde::Deserialize;
+    use serde::Serialize;
+    use std::fmt::Write;
 
     use crate::TestServer;
 
@@ -1980,12 +1980,12 @@ mod test_add_raw_query_param {
 
 #[cfg(test)]
 mod test_clear_query_params {
-    use ::axum::extract::Query;
-    use ::axum::routing::get;
-    use ::axum::Router;
+    use axum::extract::Query;
+    use axum::routing::get;
+    use axum::Router;
 
-    use ::serde::Deserialize;
-    use ::serde::Serialize;
+    use serde::Deserialize;
+    use serde::Serialize;
 
     use crate::TestServer;
 
@@ -2052,8 +2052,8 @@ mod test_clear_query_params {
 mod test_expect_success_by_default {
     use super::*;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
+    use axum::routing::get;
+    use axum::Router;
 
     #[tokio::test]
     async fn it_should_not_panic_by_default_if_accessing_404_route() {
@@ -2099,10 +2099,10 @@ mod test_expect_success_by_default {
 mod test_content_type {
     use super::*;
 
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::http::header::CONTENT_TYPE;
-    use ::http::HeaderMap;
+    use axum::routing::get;
+    use axum::Router;
+    use http::header::CONTENT_TYPE;
+    use http::HeaderMap;
 
     async fn get_content_type(headers: HeaderMap) -> String {
         headers
@@ -2132,9 +2132,9 @@ mod test_content_type {
 #[cfg(test)]
 mod test_expect_success {
     use crate::TestServer;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::http::StatusCode;
+    use axum::routing::get;
+    use axum::Router;
+    use http::StatusCode;
 
     #[tokio::test]
     async fn it_should_not_panic_if_success_is_returned() {
@@ -2188,9 +2188,9 @@ mod test_expect_success {
 #[cfg(test)]
 mod test_expect_failure {
     use crate::TestServer;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::http::StatusCode;
+    use axum::routing::get;
+    use axum::Router;
+    use http::StatusCode;
 
     #[tokio::test]
     async fn it_should_not_panic_if_expect_failure_on_404() {
@@ -2244,9 +2244,9 @@ mod test_expect_failure {
 
 #[cfg(test)]
 mod test_scheme {
-    use ::axum::extract::Request;
-    use ::axum::routing::get;
-    use ::axum::Router;
+    use axum::extract::Request;
+    use axum::routing::get;
+    use axum::Router;
 
     use crate::TestServer;
 
@@ -2277,9 +2277,9 @@ mod test_scheme {
 mod test_typed_get {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2311,9 +2311,9 @@ mod test_typed_get {
 mod test_typed_post {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2345,9 +2345,9 @@ mod test_typed_post {
 mod test_typed_patch {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2379,9 +2379,9 @@ mod test_typed_patch {
 mod test_typed_put {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2413,9 +2413,9 @@ mod test_typed_put {
 mod test_typed_delete {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2447,9 +2447,9 @@ mod test_typed_delete {
 mod test_typed_method {
     use super::*;
 
-    use ::axum::Router;
-    use ::axum_extra::routing::RouterExt;
-    use ::serde::Deserialize;
+    use axum::Router;
+    use axum_extra::routing::RouterExt;
+    use serde::Deserialize;
 
     #[derive(TypedPath, Deserialize)]
     #[typed_path("/path/:id")]
@@ -2540,9 +2540,9 @@ mod test_typed_method {
 #[cfg(test)]
 mod test_sync {
     use super::*;
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::std::cell::OnceCell;
+    use axum::routing::get;
+    use axum::Router;
+    use std::cell::OnceCell;
 
     #[tokio::test]
     async fn it_should_be_able_to_be_in_one_cell() {

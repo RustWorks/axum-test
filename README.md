@@ -18,10 +18,10 @@ This runs your application locally, allowing you to query against it with reques
 Decode the responses, and assert what is returned.
 
 ```rust
-  use ::axum::Router;
-  use ::axum::routing::get;
+  use axum::Router;
+  use axum::routing::get;
 
-  use ::axum_test::TestServer;
+  use axum_test::TestServer;
 
   #[tokio::test]
   async fn it_should_ping_pong() {

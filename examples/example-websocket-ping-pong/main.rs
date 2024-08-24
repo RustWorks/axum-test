@@ -10,20 +10,20 @@
 //! ```
 //!
 
-use ::anyhow::Result;
-use ::axum::extract::ws::WebSocket;
-use ::axum::extract::WebSocketUpgrade;
-use ::axum::response::Response;
-use ::axum::routing::get;
-use ::axum::serve::serve;
-use ::axum::Router;
-use ::std::net::IpAddr;
-use ::std::net::Ipv4Addr;
-use ::std::net::SocketAddr;
-use ::tokio::net::TcpListener;
+use anyhow::Result;
+use axum::extract::ws::WebSocket;
+use axum::extract::WebSocketUpgrade;
+use axum::response::Response;
+use axum::routing::get;
+use axum::serve::serve;
+use axum::Router;
+use std::net::IpAddr;
+use std::net::Ipv4Addr;
+use std::net::SocketAddr;
+use tokio::net::TcpListener;
 
 #[cfg(test)]
-use ::axum_test::TestServer;
+use axum_test::TestServer;
 
 const PORT: u16 = 8080;
 
@@ -84,7 +84,7 @@ fn new_test_app() -> TestServer {
 mod test_websockets_ping_pong {
     use super::*;
 
-    use ::serde_json::json;
+    use serde_json::json;
 
     #[tokio::test]
     async fn it_should_start_a_websocket_connection() {

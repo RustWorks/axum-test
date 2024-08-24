@@ -1,7 +1,7 @@
-use ::anyhow::Result;
-use ::axum::routing::IntoMakeService;
-use ::axum::Router;
-use ::url::Url;
+use anyhow::Result;
+use axum::routing::IntoMakeService;
+use axum::Router;
+use url::Url;
 
 use crate::internals::HttpTransportLayer;
 use crate::internals::MockTransportLayer;
@@ -37,10 +37,10 @@ impl IntoTransportLayer for IntoMakeService<Router> {
 
 #[cfg(test)]
 mod test_into_http_transport_layer_for_into_make_service {
-    use ::axum::extract::State;
-    use ::axum::routing::get;
-    use ::axum::routing::IntoMakeService;
-    use ::axum::Router;
+    use axum::extract::State;
+    use axum::routing::get;
+    use axum::routing::IntoMakeService;
+    use axum::Router;
 
     use crate::TestServer;
 
@@ -90,10 +90,10 @@ mod test_into_http_transport_layer_for_into_make_service {
 
 #[cfg(test)]
 mod test_into_mock_transport_layer_for_into_make_service {
-    use ::axum::extract::State;
-    use ::axum::routing::get;
-    use ::axum::routing::IntoMakeService;
-    use ::axum::Router;
+    use axum::extract::State;
+    use axum::routing::get;
+    use axum::routing::IntoMakeService;
+    use axum::Router;
 
     use crate::TestServer;
 

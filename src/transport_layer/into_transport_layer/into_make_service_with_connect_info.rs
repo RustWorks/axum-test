@@ -1,9 +1,9 @@
-use ::anyhow::anyhow;
-use ::anyhow::Result;
-use ::axum::extract::connect_info::IntoMakeServiceWithConnectInfo;
-use ::axum::serve::IncomingStream;
-use ::axum::Router;
-use ::url::Url;
+use anyhow::anyhow;
+use anyhow::Result;
+use axum::extract::connect_info::IntoMakeServiceWithConnectInfo;
+use axum::serve::IncomingStream;
+use axum::Router;
+use url::Url;
 
 use crate::internals::HttpTransportLayer;
 use crate::transport_layer::IntoTransportLayer;
@@ -47,9 +47,9 @@ where
 
 #[cfg(test)]
 mod test_into_http_transport_layer_for_into_make_service_with_connect_info {
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::std::net::SocketAddr;
+    use axum::routing::get;
+    use axum::Router;
+    use std::net::SocketAddr;
 
     use crate::TestServer;
 
@@ -77,9 +77,9 @@ mod test_into_http_transport_layer_for_into_make_service_with_connect_info {
 
 #[cfg(test)]
 mod test_into_mock_transport_layer_for_into_make_service_with_connect_info {
-    use ::axum::routing::get;
-    use ::axum::Router;
-    use ::std::net::SocketAddr;
+    use axum::routing::get;
+    use axum::Router;
+    use std::net::SocketAddr;
 
     use crate::TestServer;
 

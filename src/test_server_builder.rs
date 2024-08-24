@@ -1,5 +1,5 @@
-use ::anyhow::Result;
-use ::std::net::IpAddr;
+use anyhow::Result;
+use std::net::IpAddr;
 
 use crate::transport_layer::IntoTransportLayer;
 use crate::TestServer;
@@ -17,8 +17,8 @@ use crate::Transport;
 /// ```rust
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
-/// use ::axum::Router;
-/// use ::axum_test::TestServerBuilder;
+/// use axum::Router;
+/// use axum_test::TestServerBuilder;
 ///
 /// let my_app = Router::new();
 /// let server = TestServerBuilder::new()
@@ -35,9 +35,9 @@ use crate::Transport;
 /// ```rust
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
-/// use ::axum::Router;
-/// use ::axum_test::TestServer;
-/// use ::axum_test::TestServerBuilder;
+/// use axum::Router;
+/// use axum_test::TestServer;
+/// use axum_test::TestServerBuilder;
 ///
 /// let my_app = Router::new();
 /// let config = TestServerBuilder::new()
@@ -122,8 +122,8 @@ impl TestServerBuilder {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let my_app = Router::new();
     /// let config = TestServer::builder()
@@ -145,8 +145,8 @@ impl TestServerBuilder {
     /// and with all settings from this `TestServerBuilder` applied.
     ///
     /// ```rust
-    /// use ::axum::Router;
-    /// use ::axum_test::TestServer;
+    /// use axum::Router;
+    /// use axum_test::TestServer;
     ///
     /// let app = Router::new();
     /// let server = TestServer::builder()
@@ -182,7 +182,7 @@ impl From<TestServerConfig> for TestServerBuilder {
 #[cfg(test)]
 mod test_build {
     use super::*;
-    use ::std::net::Ipv4Addr;
+    use std::net::Ipv4Addr;
 
     #[test]
     fn it_should_build_default_config_by_default() {
