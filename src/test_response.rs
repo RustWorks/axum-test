@@ -35,7 +35,7 @@ use crate::TestWebSocket;
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
 /// use ::axum::Json;
-/// use ::axum::routing::Router;
+/// use ::axum::Router;
 /// use ::axum::routing::get;
 /// use ::serde::Deserialize;
 /// use ::serde::Serialize;
@@ -64,7 +64,7 @@ use crate::TestWebSocket;
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
 /// # use ::axum::Json;
-/// # use ::axum::routing::Router;
+/// # use ::axum::Router;
 /// # use ::axum::routing::get;
 /// # use ::serde::Deserialize;
 /// # use ::serde::Serialize;
@@ -102,7 +102,7 @@ use crate::TestWebSocket;
 /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
 /// #
 /// use ::axum::Json;
-/// use ::axum::routing::Router;
+/// use ::axum::Router;
 /// use ::axum::routing::get;
 /// use ::serde::Deserialize;
 /// use ::serde::Serialize;
@@ -167,7 +167,7 @@ impl TestResponse {
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
     /// use ::axum::Json;
-    /// use ::axum::routing::Router;
+    /// use ::axum::Router;
     /// use ::axum::routing::get;
     /// use ::serde_json::json;
     /// use ::serde_json::Value;
@@ -207,7 +207,7 @@ impl TestResponse {
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
     /// use ::axum::Json;
-    /// use ::axum::routing::Router;
+    /// use ::axum::Router;
     /// use ::axum::routing::get;
     /// use ::serde::Deserialize;
     /// use ::serde::Serialize;
@@ -260,7 +260,7 @@ impl TestResponse {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::routing::Router;
+    /// use ::axum::Router;
     /// use ::axum::routing::get;
     /// use ::axum_yaml::Yaml;
     /// use ::serde::Deserialize;
@@ -315,7 +315,7 @@ impl TestResponse {
     /// ```rust
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
-    /// use ::axum::routing::Router;
+    /// use ::axum::Router;
     /// use ::axum::routing::get;
     /// use ::axum_msgpack::MsgPack;
     /// use ::serde::Deserialize;
@@ -371,7 +371,7 @@ impl TestResponse {
     /// # async fn test() -> Result<(), Box<dyn ::std::error::Error>> {
     /// #
     /// use ::axum::Form;
-    /// use ::axum::routing::Router;
+    /// use ::axum::Router;
     /// use ::axum::routing::get;
     /// use ::serde::Deserialize;
     /// use ::serde::Serialize;
@@ -926,7 +926,7 @@ impl From<TestResponse> for Bytes {
 mod test_assert_header {
     use ::axum::http::HeaderMap;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
 
     use crate::TestServer;
 
@@ -979,7 +979,7 @@ mod test_assert_header {
 mod test_assert_contains_header {
     use ::axum::http::HeaderMap;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
 
     use crate::TestServer;
 
@@ -1018,7 +1018,7 @@ mod test_assert_contains_header {
 #[cfg(test)]
 mod test_assert_success {
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::http::StatusCode;
 
     use crate::TestServer;
@@ -1062,7 +1062,7 @@ mod test_assert_success {
 #[cfg(test)]
 mod test_assert_failure {
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::http::StatusCode;
 
     use crate::TestServer;
@@ -1104,7 +1104,7 @@ mod test_assert_failure {
 #[cfg(test)]
 mod test_assert_status {
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::http::StatusCode;
 
     use crate::TestServer;
@@ -1134,7 +1134,7 @@ mod test_assert_status {
 #[cfg(test)]
 mod test_assert_not_status {
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::http::StatusCode;
 
     use crate::TestServer;
@@ -1168,8 +1168,8 @@ mod test_assert_not_status {
 mod test_into_bytes {
     use crate::TestServer;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Json;
+    use ::axum::Router;
     use ::serde_json::json;
     use ::serde_json::Value;
 
@@ -1196,8 +1196,8 @@ mod test_into_bytes {
 mod test_json {
     use crate::TestServer;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Json;
+    use ::axum::Router;
     use ::serde::Deserialize;
     use ::serde::Serialize;
 
@@ -1237,7 +1237,7 @@ mod test_json {
 mod test_yaml {
     use crate::TestServer;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::axum_yaml::Yaml;
     use ::serde::Deserialize;
     use ::serde::Serialize;
@@ -1278,7 +1278,7 @@ mod test_yaml {
 mod test_msgpack {
     use crate::TestServer;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
     use ::axum_msgpack::MsgPack;
     use ::serde::Deserialize;
     use ::serde::Serialize;
@@ -1318,8 +1318,8 @@ mod test_msgpack {
 mod test_form {
     use crate::TestServer;
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Form;
+    use ::axum::Router;
     use ::serde::Deserialize;
     use ::serde::Serialize;
 
@@ -1359,7 +1359,7 @@ mod test_assert_text {
     use crate::TestServer;
 
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
 
     fn new_test_server() -> TestServer {
         async fn route_get_text() -> &'static str {
@@ -1402,7 +1402,7 @@ mod test_assert_text_contains {
     use crate::TestServer;
 
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
 
     fn new_test_server() -> TestServer {
         async fn route_get_text() -> &'static str {
@@ -1447,9 +1447,9 @@ mod test_assert_json {
     use crate::TestServer;
 
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Form;
     use ::axum::Json;
+    use ::axum::Router;
     use ::serde::Deserialize;
     use ::serde::Serialize;
 
@@ -1518,8 +1518,8 @@ mod test_assert_yaml {
     use crate::TestServer;
 
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Form;
+    use ::axum::Router;
     use ::axum_yaml::Yaml;
     use ::serde::Deserialize;
     use ::serde::Serialize;
@@ -1588,9 +1588,9 @@ mod test_assert_form {
     use crate::TestServer;
 
     use ::axum::routing::get;
-    use ::axum::routing::Router;
     use ::axum::Form;
     use ::axum::Json;
+    use ::axum::Router;
     use ::serde::Deserialize;
     use ::serde::Serialize;
 
@@ -1656,8 +1656,9 @@ mod test_assert_form {
 #[cfg(test)]
 mod test_text {
     use crate::TestServer;
+
     use ::axum::routing::get;
-    use ::axum::routing::Router;
+    use ::axum::Router;
 
     #[tokio::test]
     async fn it_should_deserialize_into_text() {
@@ -1678,7 +1679,6 @@ mod test_text {
 #[cfg(feature = "ws")]
 #[cfg(test)]
 mod test_into_websocket {
-    use crate::TestServer;
     use crate::TestServer;
 
     use ::axum::extract::ws::WebSocket;
