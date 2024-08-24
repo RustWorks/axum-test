@@ -54,7 +54,7 @@ where
         })
     }
 
-    fn get_type(&self) -> TransportLayerType {
+    fn transport_layer_type(&self) -> TransportLayerType {
         TransportLayerType::Mock
     }
 }

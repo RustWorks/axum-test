@@ -19,5 +19,5 @@ pub trait TransportLayer: Debug + Send + Sync {
         None
     }
 
-    fn get_type(&self) -> TransportLayerType;
+    fn transport_layer_type(&self) -> TransportLayerType;
 }
